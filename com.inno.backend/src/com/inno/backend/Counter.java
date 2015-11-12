@@ -57,16 +57,8 @@ public class Counter {
 	// This method is the counter logic.
 	public void GetRequest(String requestLine) throws Exception {
 		PrintWriter output = new PrintWriter(socket.getOutputStream());
-		/*
-		 * for (Item item : list) { System.out.println("Name: " + item.getName()
-		 * + " " + "value: " + item.getValue()); output.print("Name: " +
-		 * item.getName() + " " + ",value: " + item.getValue()); }
-		 */
-		// String decode = null;
 		value = 1;
 		System.out.println(requestLine);
-		// decode = URLDecoder.decode(requestLine, "UTF-8");
-		// System.out.println("decode:" + decode);
 		if (!requestLine.contains("=")) {
 			System.out.println("Wrong command!");
 		} else {
@@ -95,17 +87,6 @@ public class Counter {
 					}
 				}
 
-				/*
-				 * if (list.isEmpty()) { System.out.println("empty");
-				 * list.add(item); System.out.println("2" +
-				 * list.get(0).getName() + list.get(0).getValue());
-				 * System.out.println("3" + item.getName() + item.getValue()); }
-				 * else { if (list.contains(item)) {
-				 * System.out.println(item.getValue()); value = item.getValue()
-				 * + 1; item.setValue(value); System.out.println(value); } else
-				 * { list.add(item); System.out.println("4value" +
-				 * item.getValue()); } }
-				 */
 
 			} else {
 				// Return value of given name.
@@ -122,13 +103,6 @@ public class Counter {
 				System.out.println(act);
 				output.print("Name: " + name + " Value: " + db.getOneAccount(name));
 
-				/*
-				 * for (Item item : list) { if (item.getName().contains(name)) {
-				 * System.out.println(item.getValue()); output.print("Name: " +
-				 * name + ",value" + item.getValue());
-				 * 
-				 * } }
-				 */
 			}
 		}
 		output.flush();
