@@ -1,3 +1,16 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.inno.backend;
 
 import java.io.BufferedReader;
@@ -6,6 +19,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/*
+ * @author Qiaochu Chen
+ * 
+ * This class is logic of the counter.
+ */
 public class Counter {
 
 	Socket socket;
@@ -25,6 +43,7 @@ public class Counter {
 		}
 	}
 
+	// This method is used to process input.
 	public void processRequest() throws Exception {
 		InputStream input = socket.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(input));
@@ -35,6 +54,7 @@ public class Counter {
 	String name;
 	int value;
 
+	// This method is the counter logic.
 	public void GetRequest(String requestLine) throws Exception {
 		PrintWriter output = new PrintWriter(socket.getOutputStream());
 		/*
@@ -50,6 +70,7 @@ public class Counter {
 		if (!requestLine.contains("=")) {
 			System.out.println("Wrong command!");
 		} else {
+			// Parsing input
 			if (!requestLine.contains("&")) {
 				String[] array = requestLine.split("=");
 				System.out.println(array[1]);
@@ -59,13 +80,17 @@ public class Counter {
 				String name = arrayName[0];
 				System.out.println(name);
 				System.out.println(" 1 value" + value);
+
+				// Return all accounts.
 				if (name.equalsIgnoreCase("getallvalue")) {
 					output.print(db.getAllAccounts());
 				} else {
+					// update value of given name.
 					if (db.doesAccountExsists(name)) {
 						value = db.getOneAccount(name) + 1;
 						db.setValueDirect(name, value);
 					} else {
+						// add new account.
 						db.addDirect(name, value);
 					}
 				}
@@ -83,6 +108,7 @@ public class Counter {
 				 */
 
 			} else {
+				// Return value of given name.
 				String[] array = requestLine.split("&");
 				String nameArray = array[0];
 				String[] tempName = nameArray.split("=");

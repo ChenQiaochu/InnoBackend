@@ -1,3 +1,16 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.inno.backend;
 
 import java.sql.Connection;
@@ -8,6 +21,12 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+ * @author Qiaochu Chen
+ * 
+ *  This class is manage the project with database, it used the SQLite.
+ *         Version: sqlite-jdbc-3.7.2
+ */
 public class Database {
 
 	private final String DRIVERNAME = "org.sqlite.JDBC";
@@ -40,6 +59,7 @@ public class Database {
 		}
 	}
 
+	// This method is add new account to database.
 	public void addDirect(String id, int value) throws SQLException {
 		String sqlStringAdd = "INSERT INTO ACCOUNTS (ID, VALUE)" + "VALUES (" + id + "," + value + ")";
 		Statement statementAdd;
@@ -48,6 +68,7 @@ public class Database {
 		statementAdd.close();
 	}
 
+	// This method is get one value of the given name.
 	public int getOneAccount(String id) throws SQLException {
 		Statement statementGetOneAccount = connection.createStatement();
 		String sqlStringGetOneAccount = "SELECT * FROM ACCOUNTS WHERE ID = " + id;
@@ -60,6 +81,7 @@ public class Database {
 		return account.value;
 	}
 
+	// This method is get all exist account in database.
 	public List<Account> getAllAccounts() throws SQLException {
 		Statement statementGetAllAccounts = connection.createStatement();
 		String sqlStringGetAllAccounts = "SELECT * FROM ACCOUNTS";
@@ -77,6 +99,7 @@ public class Database {
 
 	}
 
+	// This method is update the value of given name.
 	public void setValueDirect(String id, int value) throws SQLException {
 		String sqlStringSetMoney = "UPDATE ACCOUNTS set VALUE =" + value + " WHERE ID = " + id;
 
