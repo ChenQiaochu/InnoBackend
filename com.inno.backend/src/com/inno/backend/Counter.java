@@ -58,20 +58,16 @@ public class Counter {
 	public void GetRequest(String requestLine) throws Exception {
 		PrintWriter output = new PrintWriter(socket.getOutputStream());
 		value = 1;
-		System.out.println(requestLine);
 		if (!requestLine.contains("=")) {
 			System.out.println("Wrong command!");
 		} else {
 			// Parsing input
 			if (!requestLine.contains("&")) {
 				String[] array = requestLine.split("=");
-				System.out.println(array[1]);
 				String temp = array[1];
-				System.out.println(temp);
 				String[] arrayName = temp.split(" ");
 				String name = arrayName[0];
 				System.out.println(name);
-				System.out.println(" 1 value" + value);
 
 				// Return all accounts.
 				if (name.equalsIgnoreCase("getallvalue")) {
